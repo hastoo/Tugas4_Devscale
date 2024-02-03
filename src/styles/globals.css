@@ -2,11 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply max-w-screen-sm mx-auto
-  }
-  input, textarea, button {
-    @apply block
-  }
-}
+
