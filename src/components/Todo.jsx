@@ -1,55 +1,64 @@
-"use client"
+"use client";
 
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
-import { TodoUpdate, TodoDelete } from "@/api.js"
 
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { TodoUpdate, TodoDelete } from "@/api.js";
+import { TiEdit } from "react-icons/ti";
+import { MdOutlineDoneOutline } from "react-icons/md";
+import { RxUpdate } from "react-icons/rx";
 
 const Todo = ({ item }) => {
-    const router = useRouter();
-    const [openEdit, setOpenEdit] = useState(false);
-    const [title, setTitle] = useState(item.name);
-    const [task, setTask] = useState(item.text);
+  const router = useRouter();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [name, setName] = useState(item.name);
 
-
-
-    const editTodo = async (e) => {
-      e.preventDefault();
-      await TodoUpdate(name, text);
-      setOpenEdit(false);
-      router.refresh();
-    };
-    
-
-    if (openEdit) {
-      return (
-        <div>
-          <input
-            value={title}
-            type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            value={task} placeholder="TASK" onChange={(e) => setTask(e.target.value)}
-            name=""
-          ></textarea>
-          <button
-            onClick={editTodo}
-          >
-            UPDATE
-          </button>
-        </div>
-      );
-    }
-    return (
-      <div>
-      </div>
-    );
+  const editTodo = async (_id, name) => {
+    await TodoUpdate(_id, name);
+    setOpenEdit(false);
+    router.refresh();
   };
 
+  const doneTodo = async (_id) => {
+    await TodoDelete(item._id);
+    router.refresh();
+  };
 
+  return (
+    <>
+      {openEdit ? (
+        <div className="update">
+          <input
+            className="inputUpdate"
+            value={name}
+            type="text"
+            placeholder="Write Something. . ."
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button className="inputButton btn btn-ghost btn-sm" onClick={() => editTodo(item._id, name)}>
+            <RxUpdate size={25} />
+          </button>
+        </div>
+      ) : (
+        <div className="todo">
+          <div className="todoField" key={item._id}>
+            {item.name}
+          </div>
+          <div className="todoButton">
+            <button
+              className="editButton btn btn-sm btn-outline btn-error"
+              onClick={() => setOpenEdit(true)}
+            >
+              <TiEdit size={25} />
+            </button>
+            <button className="doneButton btn btn-outline btn-accent btn-sm" onClick={() => doneTodo(item._id)}>
+              <MdOutlineDoneOutline size={25} />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
-
-
-
-
-  export default Todo;
+export default Todo;

@@ -4,8 +4,58 @@
 
 
 @layer base {
-  body {
-    @apply bg-white text-white
-
+  main {
+    @apply max-w-4xl mx-auto mt-4 border-2 border-rose-400 rounded-lg h-screen mb-10
   }
+
+  .head {
+    @apply text-center my-8 flex flex-col gap-4
+  }
+
+  .update {
+    @apply grid grid-cols-5 gap-14 mb-2 px-10
+  }
+
+  .todo {
+    @apply px-10 grid grid-cols-5 gap-3 justify-between mb-2
+  }
+}
+
+@layer components {
+  .title {
+    @apply text-2xl font-bold
+  }
+
+  .createTodo {
+    @apply flex flex-col items-center justify-center
+  }
+
+  .submitTodo {
+    @apply rounded-lg text-center w-4/5 h-10 bg-slate-100 mx-auto 
+  }
+  
+  .inputUpdate {
+    @apply border-2 col-span-4 p-1 rounded-lg
+  }
+
+  .inputButton {
+    @apply border border-slate-500 rounded-full w-fit
+  }
+
+  .todoField {
+    @apply w-full border-2 flex justify-around text-left font-semibold col-span-4 rounded-lg p-1
+  }
+
+  .todoButton {
+    @apply px-9 flex justify-between
+  }
+
+  .editButton {
+    @apply border border-slate-500 rounded-full w-fit p-1 
+  }
+
+  .doneButton {
+    @apply border border-slate-500 rounded-full w-fit p-1
+  }
+
 }
